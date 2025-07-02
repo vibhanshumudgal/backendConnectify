@@ -1,4 +1,3 @@
-
 const express = require("express");
 require("dotenv").config();
 const DbConnectFunction = require("./config/dbConnectFun");
@@ -17,7 +16,7 @@ const cors = require("cors");
 const allowedOrigins = [
   "http://localhost:5173",
   "https://frontend-connectify.vercel.app",
-  
+  "https://frontendconnectify.onrender.com",
 ];
 
 app.use(
