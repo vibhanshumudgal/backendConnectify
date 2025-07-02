@@ -2,7 +2,7 @@ const http = require("http");
 const app = require("./src/app");
 const initializesocket = require("./src/helper/socket");
 const port = process.env.PORT || 3000;
-const api_server = require("./api/server")
+
 const server = http.createServer(app);
 initializesocket(server);
 
