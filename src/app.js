@@ -11,6 +11,7 @@ const AuthRouter = require("./Routers/AuthRouter");
 const ProfileRouter = require("./Routers/Profile");
 const requestRouter = require("./Routers/Request");
 const UserReqRouter = require("./Routers/UserReq");
+const ChatRouter = require("./Routers/ChatRouter");
 const cors = require("cors");
 
 const allowedOrigins = [
@@ -44,7 +45,7 @@ app.use("/", AuthRouter);
 app.use("/", ProfileRouter);
 app.use("/", requestRouter);
 app.use("/", UserReqRouter);
-app.use("/", require("./Routers/ChatRouter"));
+app.use("/", ChatRouter);
 
 DbConnectFunction();
 
