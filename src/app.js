@@ -16,7 +16,8 @@ const cors = require("cors");
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://frontend-connectify.vercel.app"
+  "https://frontend-connectify.vercel.app",
+  
 ];
 
 app.use(

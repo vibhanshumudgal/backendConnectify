@@ -68,6 +68,7 @@ AuthRouter.post("/login", async (req, res) => {
     res.cookie("token", token, {
       secure: true,
       maxAge: 36000000000,
+      sameSite: "None"
     });
     res.send(user);
   } catch (error) {
