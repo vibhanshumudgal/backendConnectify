@@ -46,7 +46,7 @@ AuthRouter.post("/singup", async (req, res) => {
 
 AuthRouter.post("/login", async (req, res) => {
   try {
-   
+ 
     const { email, password } = req.body;
 
     if (!validator.isEmail(email)) {
