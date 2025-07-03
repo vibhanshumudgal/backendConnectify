@@ -35,8 +35,8 @@ AuthRouter.post("/singup", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
-      maxAge: 8 * 60 * 60 * 1000,
       sameSite: "None",
+      path: "/",
     });
 
     res.status(201).json({ savedUser });
@@ -47,6 +47,7 @@ AuthRouter.post("/singup", async (req, res) => {
 
 AuthRouter.post("/login", async (req, res) => {
   try {
+    console.log("login");
     const { email, password } = req.body;
 
     if (!validator.isEmail(email)) {
@@ -66,26 +67,30 @@ AuthRouter.post("/login", async (req, res) => {
       expiresIn: "8hr",
     });
     res.cookie("token", token, {
+      httpOnly: true,
       secure: true,
-      maxAge: 36000000000,
       sameSite: "None",
+      path: "/",
     });
     res.send(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
 AuthRouter.post("/logout", (req, res) => {
   try {
-    res.clearCookie("token", token, {
+    res.clearCookie("token", {
+      httpOnly: true,
       secure: true,
-      maxAge: 36000000000,
       sameSite: "None",
+      path: "/",
     });
-    res.send("Logout.....");
+
+    res.status(200).send("Logout successful.");
   } catch (error) {
+    console.error("Logout error:", error);
     res.status(500).json({ error: error.message });
   }
 });
+
 module.exports = AuthRouter;
