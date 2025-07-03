@@ -8,9 +8,9 @@ require("dotenv").config();
 AuthRouter.post("/singup", async (req, res) => {
   try {
     const { name, email, age, password, about, gender } = req.body;
-  
+
     const existingUser = await User.findOne({ email });
-  
+
     if (existingUser) {
       return res.status(400).json({ error: "Email Already Exists" });
     }
@@ -36,6 +36,7 @@ AuthRouter.post("/singup", async (req, res) => {
       httpOnly: true,
       secure: true,
       maxAge: 8 * 60 * 60 * 1000,
+      sameSite: "None",
     });
 
     res.status(201).json({ savedUser });
@@ -46,7 +47,6 @@ AuthRouter.post("/singup", async (req, res) => {
 
 AuthRouter.post("/login", async (req, res) => {
   try {
- 
     const { email, password } = req.body;
 
     if (!validator.isEmail(email)) {
@@ -68,7 +68,7 @@ AuthRouter.post("/login", async (req, res) => {
     res.cookie("token", token, {
       secure: true,
       maxAge: 36000000000,
-      sameSite: "None"
+      sameSite: "None",
     });
     res.send(user);
   } catch (error) {
@@ -78,7 +78,11 @@ AuthRouter.post("/login", async (req, res) => {
 
 AuthRouter.post("/logout", (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", token, {
+      secure: true,
+      maxAge: 36000000000,
+      sameSite: "None",
+    });
     res.send("Logout.....");
   } catch (error) {
     res.status(500).json({ error: error.message });
